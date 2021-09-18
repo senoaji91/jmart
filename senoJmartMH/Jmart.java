@@ -32,29 +32,42 @@ public class Jmart
         // put your code here
         return x + y;
     }
-}
-
-public class Driver
-{
-    public void main (String args[]){
-        getPromo();
+    
+    public void main (String[] message){
     }
     
-    public int getPromo(){
+    public static int getPromo() {
         return 0;
     }
     
-    public String getCustomer(){
+    public static String getCustomer() {
         return "oop";
     }
     
-    public float getDiscountPercentage(int before, int after) {
-        if (before < after){
-            return 0.0f;
-        }else{
-            return(int)getDiscountPercentage;
-        }
+    public static float getDiscountPercentage(int before, int after) {
+        return before < after ? 0.0f : (before - after) / 100.0f;
     }
     
+    public static int getDiscountedPrice(int price, float discountPercentage) {
+        if (discountPercentage > 100.0f) {
+            discountPercentage = 100.0f;
+        }
+        return (int) (price * (100.0f - discountPercentage) / 100.0f);
+    }
     
+    public static int getOriginalPrice(int discountedPrice, float discountPercentage) {
+        return (int) (discountedPrice / (100.0f - discountPercentage) * 100.0f);
+    }
+    
+    public static float getCommissionMultiplier(){
+        return 0.05f;
+    }
+    
+    public static int getAdjustedPrice(int price){
+        return (int) (price * (0.05f + 1.00f));
+    }
+    
+    public static int getAdminFee(int price){
+        return (int) (price * 0.05f);
+    }
 }
