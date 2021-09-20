@@ -21,4 +21,19 @@ public class Jmart
         Product tes = new Product("Tes1", 20, false, pt, ProductCategory.BOOK);
         return tes;
     }
+    
+    public static Product createProduct()
+    {
+        return null;
+    }
+    
+    public static Coupon createCoupon()
+    {
+        return null;
+    }
+    
+    public static ShipmentDuration ShipmentDuration()
+    {
+        return null;
+    }
 }
