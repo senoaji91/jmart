@@ -7,7 +7,7 @@ package senoJmartMH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Coupon
+public class Coupon extends Recognizable implements FileParser
 {
     private boolean used;
     public String name;
@@ -21,8 +21,9 @@ public class Coupon
         DISCOUNT, REBATE
     }
     
-    public Coupon(String name, int code, Type type, double cut, double minimum)
+    public Coupon(int id, String name, int code, Type type, double cut, double minimum)
     {
+        super(id);
         this.name = name;
         this.code = code;
         this.type = type;
@@ -50,5 +51,11 @@ public class Coupon
        else{
            return (priceTag.getAdjustedPrice() - this.cut);
        }
+    }
+    
+    @Override
+    public boolean read(String content)
+    {
+        return false;
     }
 }
