@@ -17,9 +17,9 @@ public class Jmart
    
     public static Product create()
     {
-        PriceTag pt = new PriceTag(1000,0);
-        Product tes = new Product("Tes1", 20, false, pt, ProductCategory.BOOK);
-        return tes;
+        /*PriceTag pt = new PriceTag(1000,0);
+        Product tes = new Product("Tes1", 20, false, pt, ProductCategory.BOOK);*/
+        return null;
     }
     
     public static Product createProduct()
@@ -32,7 +32,7 @@ public class Jmart
         return null;
     }
     
-    public static ShipmentDuration ShipmentDuration()
+    public static Shipment shipment()
     {
         return null;
     }

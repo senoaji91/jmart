@@ -7,41 +7,38 @@ package senoJmartMH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Transaction extends Recognizable
+public interface Transactor
 {
-    public String time = "Time";
+    /*public String time = "Time";
     public int buyerId;
     public int storeId;
     public Rating rating = Rating.NONE;
 
-    public enum Rating
-    {
+    public enum Rating {
         NONE,
         BAD,
         NEUTRAL,
         GOOD
     }
 
-    protected Transaction(int id, int buyerId, int storeId) 
-    {
+    protected Transactor(int id, int buyerId, int storeId) {
         super(id);
         this.buyerId = buyerId;
         this.storeId = storeId;
     }
 
-    protected Transaction(int id, Account buyer, Store store)
-    {
+    protected Transactor(int id, Account buyer, Store store) {
         super(id);
         this.buyerId = buyer.id;
         this.storeId = store.id;
-    }
+    }*/
     
-    public boolean validate()
+    public default boolean validate()
     {
         return false;
     }
 
-    public Transaction perform()
+    public default Invoice perform()
     {
         return null;
     }
