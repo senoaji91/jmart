@@ -9,10 +9,10 @@ package senoJmartMH;
  */
 public class Account extends Recognizable implements FileParser
 {
+    // instance variables - replace the example below with your own
     public String name;
     public String email;
     public String password;
-
     public Account(int id, String name, String email, String password)
     {
         super(id);
@@ -20,24 +20,19 @@ public class Account extends Recognizable implements FileParser
         this.email = email;
         this.password = password;
     }
-
     @Override
     public boolean read(String content)
     {
         return false;
     }
-
     @Override
-    public Object write()
-    {
+    public Object write(){
         return null;
     }
-
     public static Object newInstance(String content)
     {
         return null;
     }
-    
     public String toString()
     {
         return

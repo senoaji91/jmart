@@ -21,13 +21,15 @@ public interface Transactor
         GOOD
     }
 
-    protected Transactor(int id, int buyerId, int storeId) {
+    protected Transactor(int id, int buyerId, int storeId)
+    {
         super(id);
         this.buyerId = buyerId;
         this.storeId = storeId;
     }
 
-    protected Transactor(int id, Account buyer, Store store) {
+    protected Transactor(int id, Account buyer, Store store)
+    {
         super(id);
         this.buyerId = buyer.id;
         this.storeId = store.id;
