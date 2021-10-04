@@ -15,6 +15,11 @@ public class Jmart
         System.out.println(Shipment.Duration.KARGO.getEstimatedArrival(new Date()));
         Store store = new Store(1,"Test Name", "Test Address", "08123456789");
         store.validate();
+        Complaint complaint = new Complaint(001, "Pengiriman tidak cepat, kurir tersesat");
+        System.out.print(complaint);
+        Account account = new Account(5,"Nama Akun","namaakun@gmail.com","passnamaakun");
+        account.validate();
+        System.out.print(account);
     }
    
     public static Product create()

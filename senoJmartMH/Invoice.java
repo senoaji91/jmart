@@ -1,6 +1,7 @@
 package senoJmartMH;
 
 import java.util.Date;
+import java.util.ArrayList;
 /**
  * Write a description of class Invoice here.
  *
@@ -15,6 +16,14 @@ public abstract class Invoice extends Recognizable implements FileParser
     public int complaintId;
     public Rating rating;
     public Status status;
+    
+    public ArrayList<Record> history = new ArrayList<Record>();
+    class Record
+    {
+        public Status status;
+        public Date date;
+        public String message;
+    }
 
     public enum Status {
          WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT, FINISHED, FAILED
@@ -34,7 +43,8 @@ public abstract class Invoice extends Recognizable implements FileParser
         this.status = Status.WAITING_CONFIRMATION;
     }
     @Override
-    public boolean read(String content){
+    public boolean read(String content)
+    {
         return false;
     }
     public abstract double getTotalPay();
