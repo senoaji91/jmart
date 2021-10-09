@@ -7,7 +7,7 @@ package senoJmartMH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Recognizable
+public class Recognizable implements Comparable<Recognizable>
 {
     public final int id;
     
@@ -15,15 +15,35 @@ public class Recognizable
     {
         this.id = id;
     }
-    
-    public boolean equals(Object object)
+
+    @Override
+    public int compareTo(Recognizable other)
     {
-        if (object instanceof Recognizable)
-        {
-            Recognizable r = (Recognizable)object;
-            return (this.id == r.id);
+        return Integer.compare(this.id, other.id);
+    }
+
+    public boolean equals(Object o)
+    {
+        if(o instanceof Recognizable){
+            Recognizable or = (Recognizable) o;
+            if (this.id == or.id){
+                return true;
+            }
+            return false;
         }
-        return false;
+        else {
+            return true;
+        }
+    }
+
+    public static <T extends Recognizable> int setClosingId(Class<T> clazz, int id)
+    {
+        return 0;
+    }
+
+    public static <T extends Recognizable> int getClosingId(Class<T> clazz)
+    {
+        return 0;
     }
     
     public boolean equals(Recognizable r)
