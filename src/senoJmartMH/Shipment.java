@@ -9,7 +9,7 @@ import java.util.Calendar;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Shipment implements FileParser
+public abstract class Shipment
 {
     // instance variables - replace the example below with your own
     public String address;
@@ -23,12 +23,6 @@ public abstract class Shipment implements FileParser
         this.shipmentCost = shipmentCost;
         this.duration = duration;
         this.receipt = receipt;
-    }
-    
-    @Override
-    public boolean read(String content)
-    {
-        return false;
     }
     
     public static class Duration

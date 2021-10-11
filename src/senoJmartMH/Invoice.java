@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Invoice extends Recognizable implements FileParser
+public abstract class Invoice extends Recognizable
 {
     public Date date;
     public int buyerId;
@@ -42,10 +42,6 @@ public abstract class Invoice extends Recognizable implements FileParser
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }
-    @Override
-    public boolean read(String content)
-    {
-        return false;
-    }
+
     public abstract double getTotalPay();
 }

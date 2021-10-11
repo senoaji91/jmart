@@ -7,7 +7,7 @@ package senoJmartMH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Coupon extends Recognizable implements FileParser
+public class Coupon extends Recognizable
 {
     private boolean used;
     public String name;
@@ -37,25 +37,20 @@ public class Coupon extends Recognizable implements FileParser
         return this.used;
     }
     
-    public boolean canApply(PriceTag priceTag)
+    public boolean canApply(Treasury treasury)
     {
-        if (priceTag.getAdjustedPrice() >= minimum & used == false) return true;
+        if (treasury.getAdjustedPrice() >= minimum & used == false) return true;
         else return false;
     }
     
-    public double apply (PriceTag priceTag){
+    public double apply (Treasury treasury){
        this.used = true;
        if (type == Type.DISCOUNT){
-           return (priceTag.getAdjustedPrice() * ((100 - this.cut)/100));
+           return (treasury.getAdjustedPrice() * ((100 - this.cut)/100));
        }
        else{
-           return (priceTag.getAdjustedPrice() - this.cut);
+           return (treasury.getAdjustedPrice() - this.cut);
        }
     }
-    
-    @Override
-    public boolean read(String content)
-    {
-        return false;
-    }
+
 }

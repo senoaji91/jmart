@@ -7,7 +7,7 @@ package senoJmartMH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Payment extends Invoice implements Transactor
+public class Payment extends Invoice
 {
     public int productId;
     public Shipment shipment;
@@ -24,18 +24,6 @@ public class Payment extends Invoice implements Transactor
         return false;
     }
 
-    @Override
-    public Invoice perform()
-    {
-        return null;
-    }
-
-    @Override
-    public boolean read(String content)
-    {
-        return false;
-    }
-    
     @Override
     public double getTotalPay()
     {

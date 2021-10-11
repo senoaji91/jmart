@@ -7,7 +7,7 @@ package senoJmartMH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class PriceTag
+public class Treasury
 {
     // instance variables - replace the example below with your own
     private int x;
@@ -21,7 +21,7 @@ public class PriceTag
     /**
      * Constructor for objects of class PriceTag
      */
-    public PriceTag(double price)
+    public Treasury(double price)
     {
         this.price = price;
         this.discount = 0.0;
@@ -29,7 +29,7 @@ public class PriceTag
         //x = 0;
     }
     
-    public PriceTag(double price, double discount)
+    public Treasury(double price, double discount)
     {
         this.price = price;
         this.discount = discount;
