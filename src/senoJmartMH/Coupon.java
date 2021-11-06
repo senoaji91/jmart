@@ -7,7 +7,7 @@ package senoJmartMH;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Coupon extends Recognizable
+public class Coupon extends Serializable
 {
     private boolean used;
     public String name;

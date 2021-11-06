@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Store extends Recognizable
+public class Store extends Serializable
 {
     public String name;
     public String address;

@@ -8,16 +8,35 @@ import java.util.ArrayList;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Invoice extends Recognizable
+public class Invoice extends Serializable
 {
-    public Date date;
     public int buyerId;
-    public int productId;
     public int complaintId;
+    public Date date;
+    public ArrayList<Record> history = new ArrayList<>();
+    public int productId;
     public Rating rating;
     public Status status;
-    
-    public ArrayList<Record> history = new ArrayList<Record>();
+
+    public enum Status
+    {
+        WAITING_CONFIRMATION,
+        CANCELLED,
+        ON_PROGRESS,
+        ON_DELIVERY,
+        COMPLAINT,
+        FINISHED,
+        FAILED
+    }
+
+    public enum Rating
+    {
+        NONE,
+        BAD,
+        NEUTRAL,
+        GOOD
+    }
+
     class Record
     {
         public Status status;
@@ -25,23 +44,17 @@ public abstract class Invoice extends Recognizable
         public String message;
     }
 
-    public enum Status {
-         WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT, FINISHED, FAILED
-    }
-
-    public enum Rating {
-        NONE,BAD,NEUTRAL,GOOD
-    }
-
-    protected Invoice(int id, int buyerId, int productId)
+    protected Invoice(int buyerId, int productId)
     {
-        super(id);
         this.buyerId = buyerId;
         this.productId = productId;
         this.date = new Date();
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
+        this.complaintId = -1;
     }
 
-    public abstract double getTotalPay();
+    public double getTotalPay() {
+        return 0.0f;
+    }
 }
