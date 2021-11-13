@@ -16,25 +16,41 @@ import java.util.stream.Collectors;
 public class Jmart
 {
     public static void main (String[] args){
-        System.out.println("account id:" + new Account(null, null, null, -1).id);
-        System.out.println("account id:" + new Account(null, null, null, -1).id);
-        System.out.println("account id:" + new Account(null, null, null, -1).id);
+//        System.out.println("account id:" + new Account(null, null, null, -1).id);
+//        System.out.println("account id:" + new Account(null, null, null, -1).id);
+//        System.out.println("account id:" + new Account(null, null, null, -1).id);
+//
+//        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
+//        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
+//        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
 
-        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
-        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
-        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
+//        try{
+//            List<Product> list = read("src/randomProductList.json");
+//            List<Product> filtered = filterByPrice(list, 20000.0, 25000.0);
+//            filtered.forEach(product -> System.out.println(product.price));
+//
+//            List<Product> filteredName = filterByName(list, "gtx", 1, 5);
+//            filteredName.forEach(product -> System.out.println(product.name));
+//
+//            List<Product> filteredAccount = filterByAccountId(list, 1, 0, 5);
+//            filteredAccount.forEach(product -> System.out.println(product.name));
+//        }catch (Throwable t)
+//        {
+//            t.printStackTrace();
+//        }
 
-        try{
-            List<Product> list = read("src/randomProductList.json");
-            List<Product> filtered = filterByPrice(list, 20000.0, 25000.0);
-            filtered.forEach(product -> System.out.println(product.price));
+        try
+        {
+            String filepath = "src/account.json";
 
-            List<Product> filteredName = filterByName(list, "gtx", 1, 5);
-            filteredName.forEach(product -> System.out.println(product.name));
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.add(new Account("name", "email", "password"));
+            tableAccount.writeJson();
 
-            List<Product> filteredAccount = filterByAccountId(list, 1, 0, 5);
-            filteredAccount.forEach(product -> System.out.println(product.name));
-        }catch (Throwable t)
+            tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.forEach(account -> System.out.println(account.toString()));
+
+        } catch (Throwable t)
         {
             t.printStackTrace();
         }
