@@ -15,6 +15,31 @@ import java.util.stream.Collectors;
 
 public class Jmart
 {
+    public static long DELIVERED_LIMIT_MS = 100;
+    public static long ON_DELIVERY_LIMIT_MS = 100;
+    public static long ON_PROGRESS_LIMIT_MS = 100;
+    public static long WAITING_CONF_LIMIT_MS = 100;
+
+    public static boolean paymentTimekeeper(Payment payment) {
+        Payment.Record record = payment.history.get(payment.history.size() - 1);
+        long elapsed = Math.abs(record.date.getTime() - (new Date()).getTime());
+
+        if(record.status == Invoice.Status.WAITING_CONFIRMATION && elapsed > WAITING_CONF_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FAILED, "WAITING"));
+            return true;
+        } else if(record.status == Invoice.Status.ON_PROGRESS && elapsed > ON_PROGRESS_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FAILED, "PROGRESS"));
+            return true;
+        } else if(record.status == Invoice.Status.ON_DELIVERY && elapsed > ON_DELIVERY_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.DELIVERED, "DELIVERY"));
+            return false;
+        } else if(record.status == Invoice.Status.DELIVERED && elapsed > DELIVERED_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FINISHED, "FINISH"));
+            return true;
+        }
+        return false;
+    }
+
     public static void main (String[] args){
 //        System.out.println("account id:" + new Account(null, null, null, -1).id);
 //        System.out.println("account id:" + new Account(null, null, null, -1).id);
@@ -39,22 +64,41 @@ public class Jmart
 //            t.printStackTrace();
 //        }
 
-        try
-        {
-            String filepath = "src/account.json";
+//        try {
+//            String filepath = "account.json";
+//            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+//            tableAccount.add(new Account("name", "email", "password"));
+//            tableAccount.writeJson();
+//
+//            tableAccount = new JsonTable<>(Account.class, filepath);
+//            tableAccount.forEach(account -> System.out.println(account.toString()));
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        try{
+            JsonTable<Payment> table = new JsonTable<>(Payment.class, "src/randomPaymentList.Json");
+            ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
+            paymentPool.start();
 
-            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
-            tableAccount.add(new Account("name", "email", "password"));
-            tableAccount.writeJson();
+            table.forEach(payment -> paymentPool.add(payment));
+            while(paymentPool.size() !=0);
+            paymentPool.exit();
 
-            tableAccount = new JsonTable<>(Account.class, filepath);
-            tableAccount.forEach(account -> System.out.println(account.toString()));
-
-        } catch (Throwable t)
+            while (paymentPool.isAlive());
+            System.out.println("Thread exited successfully");
+            Gson gson = new Gson();
+            table.forEach(payment-> {
+                String history = gson.toJson(payment.history);
+                System.out.println(history);
+            });
+        }catch (Throwable t)
         {
             t.printStackTrace();
         }
     }
+
+
 
     public static List<Product> read(String filepath) throws FileNotFoundException
     {

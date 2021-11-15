@@ -13,37 +13,29 @@ public class Invoice extends Serializable
     public int buyerId;
     public int complaintId;
     public Date date;
-    public ArrayList<Record> history = new ArrayList<>();
     public int productId;
     public Rating rating;
     public Status status;
 
     public enum Status
     {
-        WAITING_CONFIRMATION,
         CANCELLED,
-        ON_PROGRESS,
-        ON_DELIVERY,
         COMPLAINT,
+        DELIVERED,
+        FAILED,
         FINISHED,
-        FAILED
+        ON_DELIVERY,
+        ON_PROGRESS,
+        WAITING_CONFIRMATION
     }
 
     public enum Rating
     {
-        NONE,
         BAD,
+        GOOD,
         NEUTRAL,
-        GOOD
+        NONE
     }
-
-    class Record
-    {
-        public Status status;
-        public Date date;
-        public String message;
-    }
-
     protected Invoice(int buyerId, int productId)
     {
         this.buyerId = buyerId;
@@ -54,7 +46,8 @@ public class Invoice extends Serializable
         this.complaintId = -1;
     }
 
-    public double getTotalPay() {
-        return 0.0f;
+    public double getTotalPay(Product product)
+    {
+        return product.price;
     }
 }

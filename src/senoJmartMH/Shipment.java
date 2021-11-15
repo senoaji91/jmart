@@ -9,7 +9,7 @@ import java.util.Calendar;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Shipment
+public class Shipment
 {
     // instance variables - replace the example below with your own
     public String address;
