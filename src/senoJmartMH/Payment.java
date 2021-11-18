@@ -13,7 +13,7 @@ import java.util.Date;
 public class Payment extends Invoice
 {
     public ArrayList<Record> history = new ArrayList<>();
-    public int productCount;
+    public transient int productId, productCount;
     public Shipment shipment;
 
     static class Record {
