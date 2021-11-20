@@ -1,5 +1,7 @@
 package com.senoJmartMH;
 
+import com.senoJmartMH.dbjson.Serializable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -20,6 +22,13 @@ public class Store extends Serializable
     {
         super(accountId);
         this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Store(String name, String address, String phoneNumber)
+    {
+        this.name =name;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }

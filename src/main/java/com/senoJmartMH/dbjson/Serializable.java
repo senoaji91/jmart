@@ -1,4 +1,4 @@
-package com.senoJmartMH;
+package com.senoJmartMH.dbjson;
 
 import java.util.HashMap;
 

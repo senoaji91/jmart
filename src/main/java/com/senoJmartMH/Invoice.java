@@ -1,7 +1,9 @@
 package com.senoJmartMH;
 
+import com.senoJmartMH.dbjson.Serializable;
+
 import java.util.Date;
-import java.util.ArrayList;
+
 /**
  * Write a description of class Invoice here.
  *

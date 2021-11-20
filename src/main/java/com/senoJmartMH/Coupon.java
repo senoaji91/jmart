@@ -1,6 +1,8 @@
 package com.senoJmartMH;
 
 
+import com.senoJmartMH.dbjson.Serializable;
+
 /**
  * Write a description of class Coupon here.
  *
