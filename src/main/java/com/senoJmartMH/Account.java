@@ -18,7 +18,7 @@ public class Account extends Serializable
     //public double balance;
 
 
-    public Account( String name, String email, String password )
+    public Account(String name, String email, String password, int i)
     {
         this.name = name;
         this.email = email;
