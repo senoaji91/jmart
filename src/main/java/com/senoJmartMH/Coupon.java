@@ -11,21 +11,21 @@ import com.senoJmartMH.dbjson.Serializable;
  */
 public class Coupon extends Serializable
 {
-    private boolean used;
-    public String name;
-    public int code;
-    public Type type;
-    public double cut;
-    public double minimum;
-    
-    public enum Type
-    {
+    public enum Type{
         DISCOUNT, REBATE
     }
-    
-    public Coupon(int id, String name, int code, Type type, double cut, double minimum)
+    // instance variables - replace the example below with your own
+    public final int code;
+    public final double cut;
+    public final double minimum;
+    public final String name;
+    public final Type type;
+    private boolean used;
+    /**
+     * Constructor for objects of class Coupon
+     */
+    public Coupon(String name, int code, Type type, double cut, double minimum)
     {
-        super(id);
         this.name = name;
         this.code = code;
         this.type = type;
@@ -33,26 +33,31 @@ public class Coupon extends Serializable
         this.minimum = minimum;
         this.used = false;
     }
-    
+    public double apply(double price, double discount)
+    {
+        used = true;
+        if(type == Type.DISCOUNT){
+            if(cut >= 100){
+                return (Treasury.getAdjustedPrice(price, discount) - Treasury.getAdjustedPrice(price, discount) * (100 / 100)); //cut max 100%
+            }else if(cut <= 0){
+                return (Treasury.getAdjustedPrice(price, discount) - Treasury.getAdjustedPrice(price, discount) * (0 / 100)); //cut min 0%
+            }else{
+                return (Treasury.getAdjustedPrice(price, discount) - Treasury.getAdjustedPrice(price, discount) * (cut / 100));
+            }
+        }
+        return (Treasury.getAdjustedPrice(price, cut) - cut);
+    }
+    public boolean canApply(double price, double discount)
+    {
+        if(Treasury.getAdjustedPrice(price, discount) >= minimum && !used){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public boolean isUsed()
     {
-        return this.used;
-    }
-    
-    public boolean canApply(Treasury treasury)
-    {
-        if (treasury.getAdjustedPrice() >= minimum & used == false) return true;
-        else return false;
-    }
-    
-    public double apply (Treasury treasury){
-       this.used = true;
-       if (type == Type.DISCOUNT){
-           return (treasury.getAdjustedPrice() * ((100 - this.cut)/100));
-       }
-       else{
-           return (treasury.getAdjustedPrice() - this.cut);
-       }
+        return used;
     }
 
 }

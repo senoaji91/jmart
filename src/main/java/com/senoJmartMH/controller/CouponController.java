@@ -2,6 +2,7 @@ package com.senoJmartMH.controller;
 
 import com.senoJmartMH.Algorithm;
 import com.senoJmartMH.Coupon;
+import com.senoJmartMH.Predicate;
 import com.senoJmartMH.Treasury;
 import com.senoJmartMH.dbjson.JsonAutowired;
 import com.senoJmartMH.dbjson.JsonTable;
@@ -12,43 +13,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/coupon")
 public class CouponController implements BasicGetController<Coupon>{
-    @JsonAutowired(value = Coupon.class, filepath = "coupon.json")
-    public static JsonTable<Coupon> couponTable;
+    public static @JsonAutowired(value= Coupon.class, filepath="coupon.json") JsonTable<Coupon> couponTable;
 
-    @GetMapping("/{id}/isUsed")
-    boolean isUsed
-            (
-                    @PathVariable int id
-            )
-    {
-        Coupon coupon = Algorithm.<Coupon>find(couponTable, obj -> obj.id == id);
-        if(coupon == null) return false;
-        return coupon.isUsed();
-    }
 
     @GetMapping("/{id}/canApply")
-    boolean canApply
-            (
-                    @PathVariable int id,
-                    @RequestParam double price,
-                    @RequestParam double discount
-            )
-    {
-
-        Coupon coupon = Algorithm.<Coupon>find(couponTable, obj -> obj.id == id);
-        if(coupon == null) return false;
-        return coupon.canApply(new Treasury(price, discount));
+    public boolean canApply(@PathVariable int id, @PathVariable double price, @PathVariable double discount){
+        for(Coupon coupon : couponTable){
+            if(coupon.id == id){
+                return coupon.canApply(price, discount);
+            }
+        }
+        return false;
     }
 
     @GetMapping("/getAvailable")
-    List<Coupon> getAvailable
-            (
-                    @RequestParam(defaultValue = "0") int page,
-                    @RequestParam(defaultValue = "0") int pageSize
-            )
-    {
-        return Algorithm.<Coupon>paginate(couponTable, page, pageSize, obj -> !obj.isUsed());
+    public List<Coupon> getAvailable(@RequestParam int page, @RequestParam int pageSize){
+        Predicate<Coupon> pred = coupon -> !coupon.isUsed();
+        return Algorithm.paginate(couponTable, page, pageSize, pred);
     }
-    @Override
-    public JsonTable<Coupon> getJsonTable() { return couponTable; }
+
+    public JsonTable<Coupon> getJsonTable() {
+        return couponTable;
+    }
+
+    @GetMapping("/{id}/isUsed")
+    public boolean isUsed(@PathVariable int id){
+        for(Coupon coupon : couponTable){
+            if(coupon.id == id){
+                return coupon.isUsed();
+            }
+        }
+        return false;
+    }
+
+
+
 }

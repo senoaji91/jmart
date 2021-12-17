@@ -1,1 +1,1 @@
-[{"name":"Seno Aji Wicaksono","email":"seno.aji92@ui.ac.id","password":"154438412ab39840ec452d0e8067c0e3","balance":0.0,"id":0}]
+[{"store":{"name":"Toko Aji","balance":0.0,"address":"Jalan Rumah Aji","phoneNumber":"082222222222"},"name":"Aji Wicaksono","email":"ajiwicak@email.com","password":"823da4223e46ec671a10ea13d7823534","balance":12.0,"id":0},{"store":{"name":"Toko Seno","balance":0.0,"address":"Jalan Rumah Seno","phoneNumber":"083333333333"},"name":"Seno Aji Wicaksono","email":"senoajiw20@gmail.com","password":"823da4223e46ec671a10ea13d7823534","balance":2.0,"id":1}]

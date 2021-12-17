@@ -10,45 +10,37 @@ import java.util.regex.Pattern;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Store extends Serializable
+public class Store
 {
+    public static final String REGEX_PHONE = "[0-9]{9,12}";
+    public static final String REGEX_NAME = "^[A-Z](?!.*([ ])\1).{3,19}$";
     public String name;
+    public double balance;
     public String address;
     public String phoneNumber;
-    public static final String REGEX_PHONE = "^\\d{9,12}$";
-    public static final String REGEX_NAME = "^[A-Z](?!.*(\\s)\\1).{4,20}$";
-
-    public Store(int accountId, String name, String address, String phoneNumber)
-    {
-        super(accountId);
+    //constructors
+    public Store(String name, String address, String phoneNumber, double balance){
         this.name = name;
+        this.balance = balance;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
-
-    public Store(String name, String address, String phoneNumber)
-    {
-        this.name =name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+    @Override
+    public String toString(){
+        return ("name: " + name +
+                "\naddress: " + address +
+                "\nphoneNumber: " + phoneNumber);
     }
-
-    public boolean validate()
-    {
-        Pattern pattern = Pattern.compile(REGEX_NAME);
-        Matcher matcher = pattern.matcher(name);
-
-        Pattern pattern2 = Pattern.compile(REGEX_PHONE);
-        Matcher matcher2 = pattern2.matcher(phoneNumber);
-        return matcher.find() && matcher2.find();
-    }
-
-    public String toString()
-    {
-        return
-        "Name : "+this.name+
-        "\nemail : "+this.address+
-        "\nphoneNumber : "+this.phoneNumber;
+    public boolean validate(){
+        Pattern pPhone = Pattern.compile(REGEX_PHONE);
+        Pattern pName = Pattern.compile(REGEX_NAME);
+        Matcher mPhone = pPhone.matcher(phoneNumber);
+        Matcher mName = pName.matcher(name);
+        if(mPhone.find() && mName.find()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

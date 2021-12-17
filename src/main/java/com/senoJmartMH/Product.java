@@ -19,29 +19,26 @@ public class Product extends Serializable
     public double price;
     public byte shipmentPlans;
     public int weight;
-
-    public Product(int accountId, ProductCategory category, boolean conditionUsed, double discount, String name, double price, byte shipmentPlans, int weight)
+    /**
+     * Constructor for objects of class Product
+     */
+    public Product(int accountId, String name, int weight, boolean conditionUsed, double price, double discount,
+                   ProductCategory category, byte shipmentPlans)
     {
         this.accountId = accountId;
-        this.category = category;
-        this.conditionUsed = conditionUsed;
-        this.discount = discount;
         this.name = name;
-        this.price = price;
-        this.shipmentPlans = shipmentPlans;
         this.weight = weight;
-    }
+        this.conditionUsed = conditionUsed;
+        this.price = price;
+        this.discount = discount;
+        this.category = category;
+        this.shipmentPlans = shipmentPlans;
 
+    }
+    @Override
     public String toString(){
-        return "Account ID: " + this.accountId + "\n"
-                + "category: " + this.category + "\n"
-                + "conditionUsed: " + this.conditionUsed + "\n"
-                + "discount: " + this.discount + "\n"
-                + "category: " + this.category + "\n"
-                + "Name: " + this.name + "\n"
-                + "price: " + this.price + "\n"
-                + "shipmentPlans: " + this.shipmentPlans + "\n"
-                + "weight: " + this.weight + "\n";
+        return("Name: " + name + "\nWeight: " + weight + "\nconditionUsed: " + conditionUsed +
+                "\nprice: " + price + "\ncategory: " + category + "\ndiscount: " + discount + "\naccountId: " + accountId);
     }
 
 }
