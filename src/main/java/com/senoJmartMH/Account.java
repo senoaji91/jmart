@@ -1,5 +1,12 @@
 package com.senoJmartMH;
 
+/**
+ * Class Account - Class untuk mendefinisikan object Account serta validasi input menggunakan REGEX berdasarkan batasan yang telah ditentukan
+ *
+ * @author Seno Aji Wicaksono
+ * @version 18-12-2021
+ */
+
 import com.senoJmartMH.dbjson.Serializable;
 
 import java.util.regex.Matcher;

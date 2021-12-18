@@ -5,7 +5,7 @@ package com.senoJmartMH;
  * Enumeration class ProductCategory - write a description of the enum class here
  *
  * @author (your name here)
- * @version (version number or date here)
+ * @version 18-12-2021
  */
 public enum ProductCategory
 {

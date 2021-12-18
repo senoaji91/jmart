@@ -1,10 +1,18 @@
 package com.senoJmartMH.controller;
 
+/**
+ * Class ProductController - Class untuk menghandle aliran data dari object product
+ *
+ * @author Seno Aji Wicaksono
+ * @version 18-12-2021
+ */
+
 import com.senoJmartMH.*;
 import com.senoJmartMH.dbjson.JsonAutowired;
 import com.senoJmartMH.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -12,6 +20,37 @@ import java.util.List;
 public class ProductController implements BasicGetController<Product>{
     public static @JsonAutowired(value= Product.class, filepath="randomProductList.json") JsonTable<Product> productTable;
 
+    //Get seller's products
+    @GetMapping("/{id}/page")
+    @ResponseBody List<Product> getProducts(@PathVariable int id, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="1000") int pageSize){
+        List<Product> productList = new ArrayList<>();
+        Account accountTarget = Algorithm.<Account>find(AccountController.accountTable,  a -> a.id == id);
+        if(accountTarget != null){
+            for(Product product : ProductController.productTable){
+                for(Payment payment : PaymentController.paymentTable){
+                    if(payment.productId == product.id && product.accountId == accountTarget.id){
+                        productList.add(product);
+                    }
+                }
+            }
+        }
+        return Algorithm.paginate(productList, page, pageSize, e->true);
+    }
+
+    //Get product of seller's purchases
+    @GetMapping("/{id}/purchases/page")
+    @ResponseBody List<Product> getMyProducts(@PathVariable int id, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="1000") int pageSize){
+        List<Product> productList = new ArrayList<>();
+        List<Payment> paymentList = Algorithm.<Payment>paginate(PaymentController.paymentTable, page, pageSize, p -> p.buyerId == id);
+        for(Product product : getJsonTable()){
+            for(Payment payment : paymentList){
+                if(payment.productId == product.id){
+                    productList.add(product);
+                }
+            }
+        }
+        return Algorithm.<Product>paginate(productList, page, pageSize, e -> true);
+    }
 
     @PostMapping("/create")
     Product create(@RequestParam int accountId, @RequestParam String name, @RequestParam int weight, @RequestParam boolean conditionUsed, @RequestParam double price, @RequestParam double discount, @RequestParam ProductCategory category, @RequestParam byte shipmentPlans){

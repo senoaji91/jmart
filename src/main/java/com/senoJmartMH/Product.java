@@ -4,11 +4,12 @@ package com.senoJmartMH;
 import com.senoJmartMH.dbjson.Serializable;
 
 /**
- * Write a description of class Product here.
+ * Class Product - Class untuk mendefinisikan object product dan menyimpannya ke dalam format json
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Seno Aji Wicaksono
+ * @version 18-12-2021
  */
+
 public class Product extends Serializable
 {
     public int accountId;

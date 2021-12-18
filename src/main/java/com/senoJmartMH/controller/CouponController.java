@@ -1,5 +1,12 @@
 package com.senoJmartMH.controller;
 
+/**
+ * Class AccountController - Class untuk menghandle aliran data dari object account
+ *
+ * @author Seno Aji Wicaksono
+ * @version 18-12-2021
+ */
+
 import com.senoJmartMH.Algorithm;
 import com.senoJmartMH.Coupon;
 import com.senoJmartMH.Predicate;
@@ -49,3 +56,4 @@ public class CouponController implements BasicGetController<Coupon>{
 
 
 }
+

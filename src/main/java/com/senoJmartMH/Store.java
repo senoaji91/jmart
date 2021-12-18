@@ -5,10 +5,10 @@ import com.senoJmartMH.dbjson.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
- * Write a description of class Store here.
+ * Class Store - Class untuk mendefinisikan object Store serta validasi input menggunakan REGEX berdasarkan batasan yang telah ditentukan
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Seno Aji Wicaksono
+ * @version 18-12-2021
  */
 public class Store
 {
